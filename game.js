@@ -13,6 +13,7 @@ let enemy = {
 
 // ゲームの状態
 let gameStarted = false;
+let playerTurn = true; // プレイヤーのターンかどうか
 
 // ゲーム開始ボタンが押された時の処理
 document.getElementById('startButton').addEventListener('click', function() {
@@ -34,28 +35,55 @@ function startGame() {
 
 // 戦闘を開始する関数
 function battle() {
-    // プレイヤーと敵の攻撃処理
-    let playerDamage = Math.floor(Math.random() * player.attack) + 1;
-    let enemyDamage = Math.floor(Math.random() * enemy.attack) + 1;
+    if (gameStarted && player.health > 0 && enemy.health > 0) {
+        if (playerTurn) {
+            // プレイヤーのターン
+            playerAttack();
+        } else {
+            // 敵のターン
+            enemyAttack();
+        }
 
-    enemy.health -= playerDamage;
-    player.health -= enemyDamage;
+        // 戦闘状況を更新
+        updateGameMessage();
+        
+        // ターン交代
+        playerTurn = !playerTurn;
 
-    // 戦闘結果を表示
-    let message = `
-        あなたは ${enemy.name} に ${playerDamage} ダメージを与えました。<br>
-        ${enemy.name} は残り ${enemy.health} HP。<br>
-        ${enemy.name} はあなたに ${enemyDamage} ダメージを与えました。<br>
-        あなたの残り HP: ${player.health}.
-    `;
-
-    if (enemy.health <= 0) {
-        message += `<br>${enemy.name} は倒れました！<br>おめでとう、勝利です！`;
-        gameStarted = false;
-    } else if (player.health <= 0) {
-        message += `<br>あなたは倒れました... ゲームオーバー。`;
-        gameStarted = false;
+        // 戦闘終了判定
+        if (enemy.health <= 0) {
+            document.getElementById('game-message').innerHTML += `<br>${enemy.name} は倒れました！<br>おめでとう、勝利です！`;
+            gameStarted = false; // ゲーム終了
+        } else if (player.health <= 0) {
+            document.getElementById('game-message').innerHTML += `<br>あなたは倒れました... ゲームオーバー。`;
+            gameStarted = false; // ゲーム終了
+        }
     }
+}
 
-    document.getElementById('game-message').innerHTML = message;
+// プレイヤーの攻撃処理
+function playerAttack() {
+    let playerDamage = Math.floor(Math.random() * player.attack) + 1;
+    enemy.health -= playerDamage;
+    document.getElementById('game-message').innerHTML += `
+        <p>あなたは ${enemy.name} に ${playerDamage} ダメージを与えました。<br>
+        ${enemy.name} の残り HP: ${enemy.health}</p>
+    `;
+}
+
+// 敵の攻撃処理
+function enemyAttack() {
+    let enemyDamage = Math.floor(Math.random() * enemy.attack) + 1;
+    player.health -= enemyDamage;
+    document.getElementById('game-message').innerHTML += `
+        <p>${enemy.name} はあなたに ${enemyDamage} ダメージを与えました。<br>
+        あなたの残り HP: ${player.health}</p>
+    `;
+}
+
+// ゲームメッセージを更新する関数
+function updateGameMessage() {
+    document.getElementById('game-message').innerHTML += `
+        <p>あなたのターン: ${playerTurn ? 'プレイヤー' : '敵'}</p>
+    `;
 }
