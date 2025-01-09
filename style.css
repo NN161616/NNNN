@@ -1,0 +1,105 @@
+/* 全体のレイアウト */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+#game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+/* ゲームマップ */
+.game-map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.player {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('images/player.png');
+    background-size: cover;
+    background-position: center;
+    
+}
+
+.enemy {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('images/enemy.png');
+    background-size: cover;
+    background-position: center;
+   
+}
+
+/* 戦闘画面 */
+.battle-screen {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+
+}
+
+.battle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.battle-background {
+    background-image: url('images/battle_background.jpg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#battle-info {
+    margin-left: 20px;
+}
+
+#battle-buttons {
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.game-over {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+}

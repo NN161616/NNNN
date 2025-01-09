@@ -3,25 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPG ゲーム</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        #game-area {
-            margin-top: 20px;
-        }
-    </style>
+    <title>RPG Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>RPG ゲーム</h1>
-    <p>冒険を開始するには、ボタンを押してください。</p>
-    <button id="startButton">ゲーム開始</button>
+    <div id="game-container">
+        <!-- ゲームマップ -->
+        <div id="game-map" class="game-map">
+            <!-- プレイヤー -->
+            <div id="player" class="player"></div>
+            <!-- 敵 -->
+            <div id="enemy" class="enemy" style="display: none;"></div>
+        </div>
 
-    <div id="game-area">
-        <p id="game-message"></p>
+        <!-- 戦闘画面 -->
+        <div id="battle-screen" class="battle-screen" style="display: none;">
+            <h2>Battle!</h2>
+            <div class="battle-container">
+                <div id="battle-background" class="battle-background"></div>
+                <div id="battle-info">
+                    <p>Enemy Health: <span id="enemyHealthLabel">100</span></p>
+                    <progress id="enemyHealthBar" value="100" max="100"></progress>
+                    <p>Player Health: <span id="playerHealthLabel">100</span></p>
+                    <progress id="playerHealthBar" value="100" max="100"></progress>
+                </div>
+                <div id="battle-buttons">
+                    <button class="button" onclick="battleAttack()">Attack</button>
+                    <button class="button" onclick="battleRun()">Run</button>
+                </div>
+            </div>
+            <!-- プレイヤーの画像 -->
+            <div id="battle-player" class="battle-character"></div>
+            <!-- 敵の画像 -->
+            <div id="battle-enemy" class="battle-character"></div>
+        </div>
+
+        <!-- 戦闘オーバーレイ -->
+        <p id="gameOver" class="game-over" style="display: none;">Game Over</p>
     </div>
 
-    <script src="game.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
